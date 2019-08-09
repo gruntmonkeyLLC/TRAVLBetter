@@ -72,6 +72,30 @@ gtag('config', 'UA-55014268-3');
 
 
     <footer></footer>
+    <script>
+    // Check that service workers are registered
+    if (navigator.serviceWorker) {
+        navigator.serviceWorker.register('/sw.js')
+        .then(function(registration){
+          console.log('Success! SW registered', registration.scope);
+        })
+        .catch(function(error){
+          console.error('Failure!', error);
+        });
+        if (navigator.serviceWorker.controller){
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.controller.postMessage('clean up caches');
+          });
+        }
+    }
+    // Check that service workers are registered
+    // if ('serviceWorker' in navigator) {
+    //   // Use the window load event to keep the page load performant
+    //   window.addEventListener('load', () => {
+    //     navigator.serviceWorker.register('/sw.js');
+    //   });
+    // }
+    </script>
 
   </body>
   </html>
